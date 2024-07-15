@@ -82,6 +82,7 @@ int main(void) {
   // Load blocks from last save
   char filePath[] = "data/saveOne";
   readBlocksFromFile(filePath, &editMode.blockList);
+  editMode.blockIdsNumber = editMode.blockList.size();
 
   /**
    * @def Mouse Position
