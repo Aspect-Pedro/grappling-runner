@@ -75,6 +75,15 @@ void handleCursor(Cursor *cursor, Camera2D camera, GUI *interface, Screen screen
 
     } else if (cursor->layer == EDIT_MODE) { // Edit mode
 
+        bool isBlockSelected = mode->editMode.selectionBox.selectedBlocks.size() == 1;
+        if (isBlockSelected) {
+            Rectangle isMouseInColorField = getBlockColorFieldArea(interface, screen);
+            if (CheckCollisionPointRec(cursor->screenPosition, isMouseInColorField)) {
+                cursor->mouseState = MOUSE_CURSOR_IBEAM;
+            }
+        }
+
+
         if (isMouseInGrid && !IsMouseButtonDown(GRID_MOVEMENT_CONTROL_CURSOR)) {
             cursor->mouseState = CURSOR_DEFAULT;
         }

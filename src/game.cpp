@@ -10,6 +10,7 @@
 #include "../includes/files.hpp"
 #include "../includes/cursor.hpp"
 #include "../includes/GUI/drawGUI.hpp"
+#include "../includes/colors.hpp"
 
 int main(void) {
   Screen screen = setupWindow(1920,1080,true);
@@ -55,7 +56,7 @@ int main(void) {
   std::vector<Block> blockList;
   EditModeGUI editModeInterface = setupEditModeGUI(screen);
   EditMode editMode = {
-    .editModeState = EDIT_MODE_STATE_CREATE,
+    .editModeState = EDIT_MODE_STATE_SELECT,
     .blockIdsNumber = 0,
     .blockList = blockList,
     .editModeInterface = editModeInterface,
@@ -76,6 +77,10 @@ int main(void) {
       .flag = 0,
       .scaleSelectedBlock = nullptr,
       .positionArrows = nullptr
+    },
+    .colorPicker = {
+      .hexBuffer = { 0 },
+      .isTriggered = false
     },
   };
 

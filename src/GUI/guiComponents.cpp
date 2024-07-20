@@ -84,3 +84,13 @@ void getGridArea(GUI *interface, Screen screen, Rectangle *gridRecs) {
     };
 
 }
+
+Rectangle getBlockColorFieldArea(GUI *interface, Screen screen) {
+    Rectangle blockColorFieldArea = {
+        (float)interface->position.x + GUI_BUTTON_MARGIN,
+        (float)screen.screenHeight - EDIT_MODE_INSPECT_MENU_HEIGHT + 160,
+        (float)interface->width - GUI_BUTTON_MARGIN,
+        60
+    };
+    return blockColorFieldArea;
+}

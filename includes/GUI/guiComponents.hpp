@@ -45,3 +45,5 @@ Rectangle getGUIButtonEnterEditModeArea(GUI *interface, Screen screen);
 Rectangle getGUIHamburguerMenuButtonArea(GUI *interface, Screen screen);
 
 void getGridArea(GUI *interface, Screen screen, Rectangle *gridRecs);
+
+Rectangle getBlockColorFieldArea(GUI *interface, Screen screen);

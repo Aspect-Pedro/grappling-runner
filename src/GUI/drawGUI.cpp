@@ -81,13 +81,26 @@ void DrawColorPicker(GUI *interface, Screen screen, Modes *mode, Block *selected
   float posX = interface->position.x + 10;
   float posY = screen.screenHeight - EDIT_MODE_INSPECT_MENU_HEIGHT + 160;
 
-  // DrawRectangleGradientEx((Rectangle){posX, posY, interface->width - 20, 100}, {0,0,0,255}, {255,255,255,255}, {0,255,255,255}, {0,0,255,255});
-  DrawRectangle(posX, posY, interface->width - 20, 60, GRAY);
-  DrawText("#000000", posX + 10, posY + 10, 40, WHITE);
+  unsigned int hexBuffer = ColorToInt(selectedBlock->colorAbsolute);
 
-  if (CheckCollisionPointRec(GetMousePosition(), (Rectangle) {posX, posY, interface->width - 20, 60})) {
+  DrawRectangle(posX, posY, interface->width - 20, 60, mode->editMode.colorPicker.isTriggered ? DARKGRAY : GRAY);
+
+  if (mode->editMode.colorPicker.isTriggered) {
+    DrawText(TextFormat("#%s", mode->editMode.colorPicker.hexBuffer), posX + 10, posY + 10, 40, WHITE);
+  } else {
+    DrawText(TextFormat("#%x", hexBuffer), posX + 10, posY + 10, 40, WHITE);
+  }
+
+  if (IsKeyPressed(KEY_ENTER)) {
+    mode->editMode.colorPicker.isTriggered = false;
+    selectedBlock->colorAbsolute = HexToColor(mode->editMode.colorPicker.hexBuffer);
+    selectedBlock->color = LessOpacity(selectedBlock->colorAbsolute, 200);
+    mode->editMode.colorPicker.hexBuffer[0] = '\0';
+  }
+
+  if (CheckCollisionPointRec(GetMousePosition(), getBlockColorFieldArea(interface, screen))) {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-      selectedBlock->colorAbsolute = BLACK;
+      mode->editMode.colorPicker.isTriggered = true;
       selectedBlock->color = LessOpacity(selectedBlock->colorAbsolute, 200);
     }
   }

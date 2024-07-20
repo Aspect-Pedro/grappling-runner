@@ -4,6 +4,7 @@
 #include "globals.hpp"
 #include "setup.hpp"
 #include "files.hpp"
+#include <string.h>
 
 void MoveAxisWithMouse(Camera2D *camera, GUI *interface, Modes *mode);
 

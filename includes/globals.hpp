@@ -59,6 +59,11 @@ typedef struct scaleMode {
 } ScaleMode;
 #define SCALE_MODE_FLAG_STOP_SCALING 1
 
+typedef struct color_picker {
+    char hexBuffer[7];
+    bool isTriggered;
+} ColorPicker;
+
 typedef struct editmode {
     int editModeState;
     int blockIdsNumber;
@@ -68,6 +73,7 @@ typedef struct editmode {
     Block *moveSelectedBlock;
     EditModeTexture textures;
     ScaleMode scaleMode;
+    ColorPicker colorPicker;
 } EditMode;
 
 typedef enum {

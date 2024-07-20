@@ -38,6 +38,21 @@ void ZoomAxisWithMouseWheel(Camera2D *camera) {
 }
 
 void getGameInput(Camera2D *camera, int *actualCamera, Modes *mode, GUI *interface) {
+    if (mode->editMode.colorPicker.isTriggered) {
+      if (IsKeyPressed(KEY_BACKSPACE)) {
+        mode->editMode.colorPicker.hexBuffer[strlen(mode->editMode.colorPicker.hexBuffer) - 1] = '\0';
+        return;
+      }
+
+      if (strlen(mode->editMode.colorPicker.hexBuffer) < 6) {
+        int key = GetKeyPressed();
+        if ((key < 71 && key > 64) || (key < 58 && key > 47)) {
+          strcpy(mode->editMode.colorPicker.hexBuffer, TextFormat("%s%c", mode->editMode.colorPicker.hexBuffer, key));
+        }
+      }
+      return;
+    }
+
     MoveAxisWithMouse(camera, interface, mode);
     ZoomAxisWithMouseWheel(camera);
 
