@@ -44,10 +44,20 @@ void editModeHandler(Modes *mode, GUI interface, Screen screen, Camera2D camera,
             mode->editMode.blockIdsNumber += 1;
 
             newBlock.layer = 0;
-            mode->editMode.blockList.push_back(newBlock);
-            
-        }
 
+            // Sort the blocks by layer
+            for (int i = 0; i <= (int) mode->editMode.blockList.size(); i++) {
+                if (i == (int) mode->editMode.blockList.size()) {
+                    mode->editMode.blockList.push_back(newBlock);
+                    break;
+                }
+
+                if (newBlock.layer < mode->editMode.blockList[i].layer) {
+                    mode->editMode.blockList.insert(mode->editMode.blockList.begin() + i, newBlock);
+                    break;
+                }
+            }     
+        }
 
         // --------------------------------------------------------------------
 
@@ -284,11 +294,12 @@ void drawRectangleList(std::vector<Block> blockList, Modes *mode) {
         DrawRectangleRec(blockList[i].rec, blockList[i].color);
     }
 
+
+    // Draw the arrows around the block when in scale mode
     int arrowMargin = 5;
     Texture2D *arrowTexture = mode->editMode.textures.arrowTexture;
-    Rectangle *rec = &mode->editMode.scaleMode.scaleSelectedBlock->rec;
     int rotations[4] = { -90, 90, 180, 0 };
-
+    Rectangle *rec = &mode->editMode.scaleMode.scaleSelectedBlock->rec;
     if (rec != nullptr) {
         // Draw arrows around the block
         // 0: up, 1: down, 2: left, 3: right

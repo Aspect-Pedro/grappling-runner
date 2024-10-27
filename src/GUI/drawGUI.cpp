@@ -71,7 +71,7 @@ void DrawHamburguerMenu(GUI *interface, Screen screen, Modes *mode)
     }
 
     DrawRectangle(menu.x, menu.y, menu.width, menu.height, color);
-    DrawRectangleRoundedLines(menu, .3, 10, 2, GRAY);
+    DrawRectangleRoundedLines(menu, .3, 10, GRAY);
     DrawText("Save", menu.x + 10, menu.y + 10, 20, WHITE);
   }
 }

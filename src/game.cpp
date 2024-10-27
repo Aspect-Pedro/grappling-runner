@@ -13,7 +13,7 @@
 #include "../includes/colors.hpp"
 
 int main(void) {
-  Screen screen = setupWindow(1920,1080,true);
+  Screen screen = setupWindow(1920,1200,true);
   SetConfigFlags(FLAG_VSYNC_HINT | FLAG_MSAA_4X_HINT );
 
   // --------------------------------------------------------------------------------------------------------------------> Textures
