@@ -25,3 +25,5 @@ void drawEditModeGUI(Screen screen, Modes *modes, GUI *interface, Cursor *cursor
 void drawEditModeSelectButton(Screen screen, Modes *modes, int btnNumber, float size);
 
 void resetEditMode(Modes *mode);
+
+void sortBlocksByLayer(std::vector<Block> *blockList);

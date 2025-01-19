@@ -378,7 +378,32 @@ void drawEditModeGUI(Screen screen, Modes *modes, GUI *interface, Cursor *cursor
             DrawText("Color Picker", interface->position.x + 10, interface->position.y + (screen.screenHeight - EDIT_MODE_INSPECT_MENU_HEIGHT) + 135, 20, WHITE);
             DrawColorPicker(interface, screen, modes, selectedBlock);
 
-            
+            int colorPickerHeight = 90;
+            DrawText("Layer: ", interface->position.x + 10, interface->position.y + (screen.screenHeight - EDIT_MODE_INSPECT_MENU_HEIGHT) + 135 + colorPickerHeight, 20, WHITE);
+            DrawText(TextFormat("%i", selectedBlock->layer), interface->position.x + 80, interface->position.y + (screen.screenHeight - EDIT_MODE_INSPECT_MENU_HEIGHT) + 135 + colorPickerHeight, 20, WHITE);
+            DrawRectangleRec({ interface->position.x + 100, interface->position.y + (screen.screenHeight - EDIT_MODE_INSPECT_MENU_HEIGHT) + 135 + colorPickerHeight, 20, 20 }, GRAY);
+            DrawText("+", interface->position.x + 105, interface->position.y + (screen.screenHeight - EDIT_MODE_INSPECT_MENU_HEIGHT) + 135 + colorPickerHeight, 20, WHITE);
+
+            if (CheckCollisionPointRec(cursor->screenPosition, { interface->position.x + 100, interface->position.y + (screen.screenHeight - EDIT_MODE_INSPECT_MENU_HEIGHT) + 135 + colorPickerHeight, 20, 20 })) {
+                if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+                    selectedBlock->layer += 1;
+
+                    // sort the blocks by layer
+                    for (int i = 0; i < (int) modes->editMode.blockList.size(); i++) {
+                        if (i == (int) modes->editMode.blockList.size() - 1) {
+                            break;
+                        }
+
+                        if (modes->editMode.blockList[i].layer > modes->editMode.blockList[i + 1].layer) {
+                            Block temp = modes->editMode.blockList[i];
+                            modes->editMode.blockList[i] = modes->editMode.blockList[i + 1];
+                            modes->editMode.blockList[i + 1] = temp;
+                        }
+                    }
+                }
+            }
+
+
         }
     }
 
